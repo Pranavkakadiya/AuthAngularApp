@@ -1,0 +1,8 @@
+<h1>SIGNUP</h1>
+<form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+    <label >UserName:</label><br>
+    <input  class="form-control" type = "text"  placeholder = "Username" formControlName="uname"><br>
+    <label >Password:</label><br>
+    <input class="form-control" type = "text" placeholder = "password" formControlName="password"><br><br>
+    <button  class="btn btn-primary" type = "submit" matTooltipPosition="below" matTooltip="SignUp">SignUp</button>
+  </form> 

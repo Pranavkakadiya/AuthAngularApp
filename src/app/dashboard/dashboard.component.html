@@ -1,0 +1,166 @@
+<!-- <p>dashboard works!</p> -->
+
+<!-- <div>
+    <h5>Name: {{item.name}}</h5>
+    <h5>Origin: {{item.origin}}</h5>
+    <h5>Price: {{item.price}}</h5>
+    <h5>Type: {{item.type}}</h5>
+    <hr>
+</div> -->
+
+<!--  -->
+<!-- <div class="container">
+    <div class="card">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered table-striped">
+                    <thead> -->
+                        <!-- event binding with sending data to ts -->
+                        <!-- <th>Name</th>
+                        <th>Origin</th>
+                        <th>Price</th>
+                        <th>Type</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of books">
+                            <td>{{item.name}}</td>
+                            <td>{{item.origin}}</td>
+                            <td>{{item.price}}</td>
+                            <td>{{item.type}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!--  -->
+
+<div class="container">
+    <form #carForm="ngForm" (ngSubmit)="onSubmit(carForm)">
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <label for="fname">Title name:</label><br>
+                        <input class="form-control" type="text" id="fname" pattern="^[a-zA-Z]+$" [(ngModel)]="car.title"
+                            name="title" #Title="ngModel" required maxlength="30" minlength="5"
+                            appForbiddenName="pranav"><br>
+                        <div *ngIf="Title.invalid && (Title.touched || Title.dirty)" role="alert">
+                            <div *ngIf="Title.errors?.required" class="alert alert-danger alert-dismissible fade show">
+                                <strong>First name is mendatory</strong>
+                            </div>
+                            <div *ngIf="Title.errors?.minlength"
+                                class="alert alert-warning alert-dismissible fade show">
+                                <strong>Name cannot be more than 30 characters long.</strong>
+                                <strong>{{Title.errors?.maxlength}}</strong>
+                            </div>
+                            <div *ngIf="Title.errors?.minlength"
+                                class="alert alert-secondary alert-dismissible fade show">
+                                <strong>Name must be at least 2 characters long.</strong>
+                            </div>
+                            <div *ngIf="Title.errors?.pattern"
+                                class="alert alert-secondary alert-dismissible fade show">
+                                <strong>Number not allowed</strong>
+                            </div>
+                            <div *ngIf="Title.errors?.forbiddenName"
+                                class="alert alert-secondary alert-dismissible fade show">
+                                <strong>Ye mera name haai tera kaise ho sakta hai</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col col-md-8">
+                        <label for="lname">content name:</label><br>
+                        <input class="form-control" type="text" id="lname" appForbiddenName="pranav"
+                            [(ngModel)]="car.content" name="content" required #Content="ngModel"><br><br>
+
+                        <div *ngIf="Content.invalid && (Content.touched || Content.dirty)"
+                            class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Lname name is mendatory</strong>
+                        </div>
+                        <div *ngIf="Title.errors?.forbiddenName"
+                            class="alert alert-secondary alert-dismissible fade show">
+                            <strong>Ye mera name haai tera kaise ho sakta hai</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3 mb-3">
+                    <div class="col">
+                        <button type="submit" class="btn btn-danger" [disabled]="carForm.invalid">Sign Up</button>
+                        <!-- <button type="submit" class="btn btn-danger"  (click)="resetForm()">Reset</button> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                {{"valid -- > : "+ Title.valid}}<br>
+                {{"invalid -- > : "+ Title.invalid}}<br>
+                {{"touched -- > : "+ Title.touched}}<br>
+                {{"untouched -- > : "+ Title.untouched}}<br>
+                {{"dirty -- > : "+ Title.dirty}}<br>
+                {{"pristine -- > : "+ Title.pristine}}<br>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <div class="card">
+        <h1>Cars record</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <input type="text" name="title" placeholder="Enter a title" [(ngModel)]="title"
+                    class="form-control m-2 col-md-6" (ngModelChange)=(searchtitle) />
+            </div>
+            <div class="col-md-4 my-2 my-lg-0">
+                <button class="btn btn-danger my-2 my-sm-0" (click)="ngOnInit()">
+                    Refresh
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <th>ID</th>
+                        <th (click)="sort('title')">Title </th>
+                        <th>Content</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let car of cars  | paginate: {itemsPerPage:5,currentPage: p}  | filter:title |orderBy:key:reverse">
+                            <td>{{car._id}}</td>
+                            <td>
+                                <div *ngIf="car.isEdit">
+                                    <input type="text" [(ngModel)]="car.title">
+                                </div>
+                                <div *ngIf="!car.isEdit">
+                                    {{car.title}}
+                                </div>
+                            </td>
+                            <td>{{car.content}}</td>
+                            <td>
+                                <div *ngIf="car.isEdit">
+                                    <button class="btn btn-success m-2" (click)="update(car)">Uodate</button>
+                                    <button class="btn btn-warning m-2" (click)="cancle(car)">Cancel</button>
+                                </div>
+                                <div *ngIf="!car.isEdit">
+                                    <button class="btn btn-warning m-2" (click)="edit(car)">Edit</button>
+                                    <button class="btn btn-danger m-2" (click)="delete(car)">Delete
+
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
