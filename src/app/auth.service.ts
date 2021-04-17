@@ -25,7 +25,6 @@ export class AuthService {
 
 
   //most useful
-
   httpOptions={
     headers:new HttpHeaders({'Content-Type':'application/json'})
   };
