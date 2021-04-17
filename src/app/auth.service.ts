@@ -18,8 +18,8 @@ export class AuthService {
   _demoSubject: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false); 
 
 
-  url="http://localhost:3010/api/";
-  urlop="http://localhost:5000/api/";
+  url="https://authapiangular.herokuapp.com/";
+  urlop="https://crudapiangular.herokuapp.com/api/";
 
   constructor(private _http:HttpClient,private _router:Router) { }
 
