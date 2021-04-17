@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit {
       password:new FormControl('')
     })
 
-    console.log(this.data.getdata())
-    let datas=this.data.getdata();
-    this.name=datas.name;
+    // console.log(this.data.getdata())
+    // let datas=this.data.getdata();
+    // this.name=datas.name;
   }
   
 //changes 
