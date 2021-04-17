@@ -15,10 +15,10 @@ export class AuthService {
   //mast ka kare chhe
   isLoding:BehaviorSubject<Boolean>=new BehaviorSubject<Boolean>(false);
 
-  _demoSubject: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false); 
+  // _demoSubject: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false); 
 
 
-  url="https://authapiangular.herokuapp.com/";
+  url="https://authapiangular.herokuapp.com/api/";
   urlop="https://crudapiangular.herokuapp.com/api/";
 
   constructor(private _http:HttpClient,private _router:Router) { }
@@ -70,21 +70,11 @@ export class AuthService {
   }
 
   addcar(data:Car):Observable<Car>{
-    return this._http.post<Car>(this.urlop+"cars/",data)
-    .pipe(
-      tap(()=>{
-        this._demoSubject.next(true);
-      })
-    );
+    return this._http.post<Car>(this.urlop+"cars/",data);
   }
 
   getcar():Observable<any>{
-    return this._http.get(this.urlop+"cars/",this.httpOptions)
-    .pipe(
-      tap(()=>{
-        this._demoSubject.next(true);
-      })
-    );;
+    return this._http.get(this.urlop+"cars/",this.httpOptions);
   }
 
   updatecar(data:Car):Observable<Car>{
