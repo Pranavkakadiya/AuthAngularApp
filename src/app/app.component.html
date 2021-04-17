@@ -63,16 +63,16 @@
   </div>
 </mat-toolbar>
 
-<!-- <div *ngIf="this._authservice.isLoding | async">
+<div *ngIf="this._authservice.isLoding | async">
 
  <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
-  <mat-spinner></mat-spinner>
+  <!-- <mat-spinner></mat-spinner> -->
 
-</div> -->
-<div *ngIf="this._authservice.isLoding | async" class="loadSpinner">
+</div>
+<!-- <div *ngIf="this._authservice.isLoding | async" class="loadSpinner">
 
   <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
   <mat-spinner style="top: 50%;left: 50%;"></mat-spinner>
 
-</div>
+</div> -->
 <router-outlet></router-outlet>
