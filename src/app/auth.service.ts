@@ -18,8 +18,10 @@ export class AuthService {
   // _demoSubject: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false); 
 
 
-  url="https://authapiangular.herokuapp.com/api/";
-  urlop="https://crudapiangular.herokuapp.com/api/";
+  // url="https://authapiangular.herokuapp.com/api/";
+  // urlop="https://crudapiangular.herokuapp.com/api/";
+  url="http://localhost:5000/api/";
+  // urlop="http://localhost:5000/api/";
 
   constructor(private _http:HttpClient,private _router:Router) { }
 
@@ -37,6 +39,7 @@ export class AuthService {
   //login ama observable ni jrror na pade because ek vaar ama data avi jay to multiple data observer karvani jroor nathi
   login(user:User){
     return this._http.post<any>(this.url+"login",user).subscribe((res:any)=>{
+      console.log(res)
       localStorage.setItem("access-token",res.token);
       this._router.navigate(['/dashboard']);
     })
@@ -63,32 +66,24 @@ export class AuthService {
     return localStorage.getItem("access-token");
   }
   
-  //fetch value
-  getbooks():Observable<any>{
+ 
+
+  addcar(data:Car):Observable<Car>{
+    return this._http.post<Car>(this.url+"cars",data);
+  }
+
+
+  getcar():Observable<any>{
     return this._http.get(this.url+"cars",this.httpOptions);
   }
 
-  addcar(data:Car):Observable<Car>{
-    return this._http.post<Car>(this.urlop+"cars/",data);
-  }
-
-  getcar():Observable<any>{
-    return this._http.get(this.urlop+"cars/",this.httpOptions);
-  }
-
   updatecar(data:Car):Observable<Car>{
-    return this._http.patch<Car>(this.urlop+"cars/"+data._id,data)
+    return this._http.patch<Car>(this.url+"cars/"+data._id,data)
   }
 
   deletecar(data:Car):Observable<Car>{
-    return this._http.delete<Car>(this.urlop+"cars/"+data._id)
+    return this._http.delete<Car>(this.url+"cars/"+data._id)
   }
-
-
-
-
-
-
 
 
 }
